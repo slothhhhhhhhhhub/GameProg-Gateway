@@ -5,7 +5,7 @@ public class GameWindow extends JFrame {
     public GameWindow() {
 
         setTitle("Gateway");
-        setSize(400, 400);
+        setSize(500, 500);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

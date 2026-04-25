@@ -44,6 +44,8 @@ public class Player {
         applyGravity();
         handleHorizontalCollision(level.getPlatforms());
         handleVerticalCollision(level.getPlatforms());
+
+        backgroundBoundaries();
         updateAnimation();
     }
 
@@ -105,6 +107,35 @@ public class Player {
         }
     }
 
+    private void backgroundBoundaries() {
+
+        int worldWidth = 1600;
+        int worldHeight = 800;
+
+        //left
+        if (x < 0) {
+            x = 0;
+        }
+
+        //right
+        if (x + width > worldWidth) {
+            x = worldWidth - width;
+        }
+
+        //top? idt i need this
+        if (y < 0) {
+            y = 0;
+            velocityY = 0;
+        }
+
+        //floor
+        if (y + height > worldHeight) {
+            y = worldHeight - height;
+            velocityY = 0;
+            onGround = true;
+        }
+    }
+
     private void updateAnimation() {
 
         if (velocityX != 0) {
@@ -119,7 +150,7 @@ public class Player {
         }
     }
 
-    public void draw(Graphics g, int cameraX) {
+    public void draw(Graphics g, int cameraX, int cameraY) {
 
         BufferedImage frame;
 
@@ -131,7 +162,7 @@ public class Player {
             frame = leftFrames[currentFrame];
         }
 
-        g.drawImage(frame, x - cameraX, y, width, height, null);
+        g.drawImage(frame, x - cameraX, y - cameraY, width, height, null);
     }
 
     public Rectangle getBounds() {
@@ -146,20 +177,26 @@ public class Player {
     }
 
     public void setLeft(boolean left) {
+
         this.left = left;
     }
 
     public void setRight(boolean right) {
+
         this.right = right;
     }
 
     public void setJump(boolean jump) {
+
         this.jump = jump;
     }
 
     public int getX(){
-
         return this.x;
+    }
+
+    public int getY(){
+        return this.y;
     }
 
 }
